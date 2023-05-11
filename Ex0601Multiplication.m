@@ -1,0 +1,33 @@
+clc;
+clear all;
+close all;
+n1 = -2:3;
+x1 = [1 3 5 2 6 4];
+subplot(3,1,1);
+stem(n1, x1);
+title('The First Signal');
+xlabel('[n]');
+ylabel('x1[n]');
+grid on;
+n2 = -2:3;
+x2 = [2 1 3 4 5 6];
+subplot(3,1,2);
+stem(n2, x2);
+title('The Second Signal');
+xlabel('[n]');
+ylabel('x2[n]');
+grid on;
+[n, y] = signal(n1, x1, n2, x2);
+subplot(3,1,3);
+stem(n, y);
+xlabel('n');
+ylabel('y');
+title('The Output Multiplied Signal');
+grid on;
+function [n, y] = signal(n1, x1, n2, x2)
+    n = min(min(n2), min(n1)):max(max(n2), max(n1));
+    y1 = zeros(1, length(n));
+    y1(n >= min(n1) & n <= max(n1)) = x1;
+    y2(n >= min(n2) & n <= max(n2)) = x2;
+    y = y1.*y2;
+end
